@@ -16,7 +16,7 @@ grad = zeros(size(theta));
 %               You should set J to the cost.
 %               Compute the partial derivatives and set grad to the partial
 %               derivatives of the cost w.r.t. each parameter in theta
-	
+	theta1=theta;
 	gradmatrix=zeros(size(theta));
 	a=X*theta;
 	hypo=sigmoid(a); %It wil give hypothesis matrix 
@@ -24,9 +24,9 @@ grad = zeros(size(theta));
 	c0=log(1-hypo);	 %calculating the cost when y=0
 	r=1-y;
 	cost=(-(c1'*y)-(c0'*r));
-	theta=theta(2:end);
-	theta=theta.**2;  %squaring the theta matrix
-	regterm=(sum(theta,1)*lambda)/2; %calculating the regularization parameter
+	theta1=theta(2:end);
+	theta1=theta1.**2;  %squaring the theta matrix
+	regterm=(sum(theta1,1)*lambda)/2; %calculating the regularization parameter
 	cost=(cost+regterm)/m; 	%It wil give cost
 	
 	
@@ -34,7 +34,7 @@ grad = zeros(size(theta));
 	grad1=X'*g;	%It wil give gradient matrix
 	gradmatrix(1)=grad1(1)/m;
 	f=lambda/m;
-	gradmatrix(2:end)=grad1(2:end)/m+f*theta;
+	gradmatrix(2:end)=grad1(2:end)/m+f*theta(2:end);
 	
 	grad=round(gradmatrix .* 10000) ./ 10000;
 	J=cost;
