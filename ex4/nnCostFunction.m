@@ -95,11 +95,29 @@ Theta2_grad = zeros(size(Theta2));
 
 	J=sum(cost1)/m+regterm;
 	
+	a1=X;
+	z2=Theta1*a1';
+	a2=sigmoid(z2);
+	a2=a2';
+	a2=[ones(m,1) a2];
+	z3=Theta2*a2';
+	a3=sigmoid(z3);
+	d3=a3'-y_matrix;
+	d2=d3*(Theta2(:,2:end));
+	a2=a2';
+	ar=a2(2:end,:);
+	d2=d2'.*ar.*(1-ar);
+	Delta1=d2*a1;
+	Delta2=d3'*a2';
+	Theta1_grad=Delta1/m;
+	Theta2_grad=Delta2/m;
+	Theta1(:,1)=0;
+	Theta2(:,1)=0;
+	Theta1_grad=Delta1/m+(lambda/m)*Theta1;
+	Theta2_grad=Delta2/m+(lambda/m)*Theta2;
 
 
-
-
-
+	
 
 
 
